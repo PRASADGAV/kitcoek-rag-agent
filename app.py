@@ -276,11 +276,21 @@ def _load_agent():
     # Auto-setup database on first run
     from setup_database import check_database_exists, setup_database
     if not check_database_exists():
-        st.warning("⚠️ Vector database not found. Running ingestion (this may take 5-10 minutes on first deployment)...")
-        if not setup_database():
-            st.error("❌ Failed to initialize database. Please check logs.")
-            st.stop()
-        st.success("✅ Database initialized successfully!")
+        import streamlit as st
+        with st.spinner("⚠️ Vector database not found. Creating from pre-scraped data (2-3 minutes)..."):
+            try:
+                success = setup_database()
+                if not success:
+                    st.error("❌ Failed to initialize database. Check deployment logs for details.")
+                    st.error("You may need to run `python ingest.py` locally and include the database in Git LFS.")
+                    st.stop()
+                st.success("✅ Database initialized successfully!")
+                st.rerun()  # Reload to use the new database
+            except Exception as e:
+                st.error(f"❌ Error during database setup: {e}")
+                import traceback
+                st.code(traceback.format_exc())
+                st.stop()
     
     from src.agent.agent import KITCOEKAgent
     return KITCOEKAgent()
