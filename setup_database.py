@@ -24,36 +24,31 @@ def check_database_exists():
 
 
 def setup_database():
-    """Run ingestion if database doesn't exist."""
+    """Run ingestion if database doesn't exist - using pre-scraped data only."""
     if check_database_exists():
         print("✅ Vector database already exists")
         return True
     
-    print("⚠️ Vector database not found. Running ingestion...")
-    print("This may take 5-10 minutes on first deployment...")
+    print("⚠️ Vector database not found. Creating from pre-scraped data...")
+    print("This will take 2-3 minutes on first deployment...")
     
     try:
-        # Run ingest.py
-        import subprocess
-        result = subprocess.run(
-            [sys.executable, "ingest.py"],
-            capture_output=True,
-            text=True,
-            timeout=900  # 15 minute timeout
-        )
+        # Import and run lightweight ingestion (no Playwright scraping)
+        # Just process existing JSON files in data/raw/
+        from ingest_prescrapped import ingest_from_existing_data
+        success = ingest_from_existing_data()
         
-        if result.returncode == 0:
+        if success:
             print("✅ Database setup complete!")
             return True
         else:
-            print(f"❌ Ingestion failed: {result.stderr}")
+            print("❌ Ingestion failed - check logs")
             return False
             
-    except subprocess.TimeoutExpired:
-        print("❌ Ingestion timed out (>15 minutes)")
-        return False
     except Exception as e:
         print(f"❌ Error during setup: {e}")
+        import traceback
+        traceback.print_exc()
         return False
 
 
