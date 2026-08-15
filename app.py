@@ -272,6 +272,16 @@ def _load_agent():
         load_dotenv()
     except ImportError:
         pass
+    
+    # Auto-setup database on first run
+    from setup_database import check_database_exists, setup_database
+    if not check_database_exists():
+        st.warning("⚠️ Vector database not found. Running ingestion (this may take 5-10 minutes on first deployment)...")
+        if not setup_database():
+            st.error("❌ Failed to initialize database. Please check logs.")
+            st.stop()
+        st.success("✅ Database initialized successfully!")
+    
     from src.agent.agent import KITCOEKAgent
     return KITCOEKAgent()
 
