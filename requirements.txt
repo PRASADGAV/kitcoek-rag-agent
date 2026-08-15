@@ -1,0 +1,31 @@
+# KITCOEK RAG Agent — Python dependencies
+# Install: pip install -r requirements.txt
+
+# ── Web scraping ──────────────────────────────────────────────────────
+requests>=2.32.0
+beautifulsoup4>=4.12.0
+playwright>=1.45.0
+
+# ── PDF extraction ────────────────────────────────────────────────────
+pymupdf>=1.24.0
+
+# ── Embeddings (BGE model downloads ~438MB on first run) ──────────────
+sentence-transformers>=3.0.0
+
+# ── Vector store ──────────────────────────────────────────────────────
+chromadb>=0.5.0
+
+# ── Sparse retrieval ──────────────────────────────────────────────────
+rank-bm25>=0.2.2
+
+# ── LLM ───────────────────────────────────────────────────────────────
+groq>=0.9.0
+openai>=1.40.0
+
+# ── UI ────────────────────────────────────────────────────────────────
+streamlit>=1.37.0
+pandas>=2.0.0
+
+# ── Utilities ─────────────────────────────────────────────────────────
+python-dotenv>=1.0.0
+numpy>=1.24.0
