@@ -16,7 +16,7 @@ except ImportError:
     pass
 
 LLM_PROVIDER = os.getenv("LLM_PROVIDER", "groq").lower()
-LLM_MODEL    = os.getenv("LLM_MODEL",    "llama-3.1-8b-instant")
+LLM_MODEL    = os.getenv("LLM_MODEL",    "llama-3.3-70b-versatile")
 
 
 class LLMClient:

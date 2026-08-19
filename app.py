@@ -261,7 +261,7 @@ def _load_agent():
         secrets = st.secrets
         os.environ.setdefault("GROQ_API_KEY",            secrets.get("GROQ_API_KEY", ""))
         os.environ.setdefault("LLM_PROVIDER",            secrets.get("LLM_PROVIDER", "groq"))
-        os.environ.setdefault("LLM_MODEL",               secrets.get("LLM_MODEL", "llama-3.1-8b-instant"))
+        os.environ.setdefault("LLM_MODEL",               secrets.get("LLM_MODEL", "llama-3.3-70b-versatile"))
         os.environ.setdefault("CHROMA_DB_PATH",          secrets.get("CHROMA_DB_PATH", "data/chroma_db"))
         os.environ.setdefault("CHROMA_COLLECTION_NAME",  secrets.get("CHROMA_COLLECTION_NAME", "kitcoek"))
         os.environ.setdefault("TOP_K_RESULTS",           secrets.get("TOP_K_RESULTS", "5"))
@@ -654,7 +654,7 @@ for KIT's College of Engineering, Kolhapur.
 | Vector DB | **ChromaDB** (cosine similarity, HNSW index) |
 | Sparse Search | **BM25** (rank-bm25) |
 | Retrieval Fusion | **RRF** (Reciprocal Rank Fusion) + **MMR** diversity |
-| LLM | **Groq** (llama-3.1-8b-instant) |
+| LLM | **Groq** (llama3-8b-8192) |
 | UI | **Streamlit** |
 
 ### 📦 Data Sources
